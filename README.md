@@ -1,4 +1,4 @@
-# Building a kubeadm cluster on Ubuntu 22.0.4 (Jammy Jellyfish)
+# Building a kubeadm cluster on Ubuntu 22.04 (Jammy Jellyfish)
 
 Here I'm going to install a kubeadm cluster with one control node and two workers at v1.24. I'm not going to detail the provisioning of the ubuntu servers here, as the cluster installation *should* work whether using VirtualBox, a hypervisor (Hyper-V, VMware etc), or cloud instances, so this guide starts from the point where you have 3 ubuntu servers provisioned that can see each other across the network. I used Hyper-V for this build, and configured static IPs for the servers.
 
@@ -8,7 +8,7 @@ Do the following to all three nodes, as root user (`sudo -i`)
 
 ### Boot time setup
 
-I found that the cluster would not come up correctly with the Ubuntu 22.0.4 default cgroups-v2. This has to be changed at boot time. I also disabled IPv6 since I'm not using it.
+I found that the cluster would not come up correctly with the Ubuntu 22.04 default cgroups-v2. This has to be changed at boot time. I also disabled IPv6 since I'm not using it.
 
 1. Edit `/etc/default/grub` and set `GRUB_CMDLINE_LINUX_DEFAULT` as follows
 
@@ -60,7 +60,7 @@ Install the packages we're going to need
     apt-get install -y containerd kubelet kubeadm kubectl kubernetes-cni
     systemctl stop kubelet              # So it doesn't fill the journal with errors
     apt-mark hold kubelet kubeadm kubectl
-    # Stop crictl from warrning about other CRI endpoints that don't exist
+    # Stop crictl from warning about other CRI endpoints that don't exist
     crictl config \
         --set runtime-endpoint=unix:///run/containerd/containerd.sock \
         --set image-endpoint=unix:///run/containerd/containerd.sock
