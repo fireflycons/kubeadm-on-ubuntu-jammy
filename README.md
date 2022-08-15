@@ -26,8 +26,13 @@ update-grub
 
 Enable the network support required to run a cluster.
 
-1. Edit `/etc/modules` and add the line `br_netfilter`
-1. Create `/etc/sysctl.d/10-kubernetes.conf` and add the following lines
+1. Edit `/etc/modules` and add the line 
+
+```
+br_netfilter
+```
+
+2. Create `/etc/sysctl.d/10-kubernetes.conf` and add the following lines
 
 ```
 net.bridge.bridge-nf-call-iptables=1
