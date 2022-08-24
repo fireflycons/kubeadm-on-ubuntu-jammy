@@ -16,6 +16,8 @@ I found that the cluster would not come up correctly with the Ubuntu 22.04 defau
 GRUB_CMDLINE_LINUX_DEFAULT="systemd.unified_cgroup_hierarchy=0 ipv6.disable=1"
 ```
 
+If other arguments are already present, don't delete them.
+
 2. Run
 
 ```bash
