@@ -81,6 +81,8 @@ Install the packages we're going to need
 
 Create `kubeadm-config.yaml` with the following content
 
+Note that we are setting `serverTLSBootstrap: true`. This is a more secure mode of operation and allows for the use of tools such as metrics server. The node certificates are valid for a year, and will need to be renewed every year. Please read [this section](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs) of the Kubernetes docs.
+
 ```yaml
 kind: ClusterConfiguration
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -96,6 +98,7 @@ controllerManager:
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
 cgroupDriver: systemd
+serverTLSBootstrap: true
 ```
 
 ### Boot control plane
@@ -150,8 +153,26 @@ kubeadm token create --print-join-command
 
 1. Install the [packages](#packages-setup) if not already done so.
 1. Execute the join command output by `kubeadm token create`
-1. Wait up to a minute for the nodes to come online, then from control plane
+1. Wait up to a minute for the nodes to come online
+1. From the control plane, authorise the kubelet certificates
+    ```bash
+    kubectl get csr
+    ```
 
-```bash
-kubectl get nodes -o wide
-```
+    Output.</br>Number of CSRs listed will match number of nodes you have deployed
+
+    ```
+    NAME        AGE     SIGNERNAME                      REQUESTOR                 REQUESTEDDURATION   CONDITION
+    csr-z2n66   9m7s    kubernetes.io/kubelet-serving   system:node:worker1       <none>              Pending
+    csr-zt56n   9m13s   kubernetes.io/kubelet-serving   system:node:worker2       <none>              Pending
+    ```
+
+    Approve them all (names will be different for you)
+
+    ```bash
+    kubectl certificate approve csr-mrkxt csr-z2n66 csr-zt56n
+    ```
+1. Finally, check nodes
+    ```bash
+    kubectl get nodes -o wide
+    ```
