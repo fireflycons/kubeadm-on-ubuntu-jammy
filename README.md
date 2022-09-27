@@ -170,7 +170,7 @@ kubeadm token create --print-join-command
     Approve them all (names will be different for you)
 
     ```bash
-    kubectl certificate approve csr-mrkxt csr-z2n66 csr-zt56n
+    kubectl certificate approve csr-z2n66 csr-zt56n
     ```
 1. Finally, check nodes
     ```bash
