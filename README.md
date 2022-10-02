@@ -28,7 +28,7 @@ update-grub
 
 Enable the network support required to run a cluster.
 
-1. Edit `/etc/modules` and add the line 
+1. Edit `/etc/modules` and add the line
 
 ```
 br_netfilter
@@ -176,3 +176,7 @@ kubeadm token create --print-join-command
     ```bash
     kubectl get nodes -o wide
     ```
+
+## Next Steps
+
+Should you wish to make your new cluster a permanent fixture on your network, and actually serve real workloads, then check out my next guide on how to provision "external" load balancing and ingress [here](https://github.com/fireflycons/howto-install-metallb).
