@@ -1,6 +1,6 @@
 # Building a kubeadm cluster on Ubuntu 22.04 (Jammy Jellyfish)
 
-Here I'm going to install a kubeadm cluster with one control node and two workers at v1.24. I'm not going to detail the provisioning of the ubuntu servers here, as the cluster installation *should* work whether using VirtualBox, a hypervisor (Hyper-V, VMware etc), or cloud instances, so this guide starts from the point where you have 3 ubuntu servers provisioned that can see each other across the network. I used Hyper-V for this build, and configured static IPs for the servers.
+Here I'm going to install a kubeadm cluster with one control node and two workers at v1.24. I'm not going to detail the provisioning of the ubuntu servers here, as the cluster installation *should* work whether using VirtualBox, a hypervisor (Hyper-V, VMware etc), or cloud instances, so this guide starts from the point where you have 3 ubuntu servers provisioned that can see each other across the network, and see the Internet. I used Hyper-V for this build, and configured static IPs for the servers.
 
 ## Initial configuration of Operating System
 
