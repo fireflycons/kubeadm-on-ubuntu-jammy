@@ -154,7 +154,14 @@ kubeadm token create --print-join-command
 1. Install the [packages](#packages-setup) if not already done so.
 1. Execute the join command output by `kubeadm token create`
 1. Wait up to a minute for the nodes to come online
-1. From the control plane, authorise the kubelet certificates
+1. Ensure `kubelet` is configured for TLS bootstrap
+    1. Inspect `/var/lib/kubelet/config.yaml`.
+    1. Ensure `serverTLSBootstrap: true` is present.
+    1. If not, edit the file, add this property, save, then restart `kubelet`
+       ```bash
+       sudo systemctl restart kubelet
+       ```
+1. From the control plane, authorise the `kubelet` certificates
     ```bash
     kubectl get csr
     ```
