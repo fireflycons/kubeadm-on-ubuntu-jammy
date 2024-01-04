@@ -13,7 +13,7 @@ I found that the cluster would not come up correctly with the Ubuntu 22.04 defau
 1. Edit `/etc/default/grub` and set `GRUB_CMDLINE_LINUX_DEFAULT` as follows
 
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="systemd.unified_cgroup_hierarchy=0 ipv6.disable=1"
+ipv6.disable=1"
 ```
 
 If other arguments are already present, don't delete them.
@@ -42,6 +42,8 @@ net.ipv4.ip_forward=1
 ```
 
 3. Disable swap
+
+Note that if the VM already had swap disabled at boot time then the fstab entry and `swap.img` won't exist.
 
 ```bash
 swapoff -a
@@ -74,6 +76,12 @@ Install the packages we're going to need
 }
 ```
 
+Configure containerd for Cgroup usage:
+
+```bash
+mkdir -p /etc/containerd
+containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/' > /etc/containerd/config.toml
+```
 
 ## Control Plane Node Setup
 
