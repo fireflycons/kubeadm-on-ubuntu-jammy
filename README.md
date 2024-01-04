@@ -8,7 +8,7 @@ Do the following to all three nodes, as root user (`sudo -i`)
 
 ### Boot time setup
 
-I found that the cluster would not come up correctly with the Ubuntu 22.04 default cgroups-v2. This has to be changed at boot time. I also disabled IPv6 since I'm not using it.
+I disabled IPv6 since I'm not using it.
 
 1. Edit `/etc/default/grub` and set `GRUB_CMDLINE_LINUX_DEFAULT` as follows
 
